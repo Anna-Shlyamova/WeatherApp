@@ -1,34 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {useEffect, useState} from 'react'
+import MainPageTemplate from "./components/templates/MainPageTemplate.tsx";
+import {Box, Theme, ThemeProvider} from "@mui/material";
+import darkTheme from "./themes/dark.ts";
+import lightTheme from "./themes/light.ts";
+import GeolocationStore from "./stores/GeolocationStore.ts";
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [theme, setTheme]= useState<Theme>(darkTheme);
+  const changeTheme = () =>{
+    if(theme === darkTheme){
+      setTheme(lightTheme);
+    }
+    else{
+      setTheme(darkTheme);
+    }
+  }
+
+  useEffect(() => {
+    GeolocationStore.fetchCoordinates();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <ThemeProvider theme={theme}>
+        <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column'}}>
+          <MainPageTemplate  onThemeChange={changeTheme}/>
+        </Box>
+      </ThemeProvider>
   )
 }
 
