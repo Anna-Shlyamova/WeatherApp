@@ -41,19 +41,25 @@ class WeatherStore  {
   }
 
   fetchCurrentWeather = async () =>{
-    this._currentWeather = await getCurrentWeather(
-      `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
-    );
+    if(GeolocationStore.longitude && GeolocationStore.latitude) {
+      this._currentWeather = await getCurrentWeather(
+        `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
+      );
+    }
   }
   fetchForecastThreeDaysWeather = async () =>{
-    this._forecastThreeDaysWeather = await getForecastThreeDaysWeather(
-      `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
-    );
+    if(GeolocationStore.longitude && GeolocationStore.latitude) {
+      this._forecastThreeDaysWeather = await getForecastThreeDaysWeather(
+        `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
+      );
+    }
   }
   fetchForecastCurrentHoursWeather = async () =>{
-    this._forecastCurrentHoursWeather = await getForecastCurrentHoursWeather(
-      `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
-    );
+    if(GeolocationStore.longitude && GeolocationStore.latitude) {
+      this._forecastCurrentHoursWeather = await getForecastCurrentHoursWeather(
+        `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
+      );
+    }
   }
 }
 

@@ -16,10 +16,7 @@ export const getCurrentWeather = (coords?: string):  Promise<CurrentWeather> => 
         lang: 'ru',
       }
     })
-    .then(value => {
-      const [air_quality, ...body] = value.data.current;
-      return body;
-    });
+    .then(value => value.data.current);
 };
 
 export const getForecastThreeDaysWeather = (coords?: string):  Promise<Array<ForecastWeather>> => {

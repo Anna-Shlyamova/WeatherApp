@@ -3,7 +3,11 @@ import {Box, SxProps, Theme} from "@mui/material";
 import sunny from '../../images/sunny.gif';
 import VidgetsPanel from "../organisms/WidgetsPanel/WidgetsPanel.tsx";
 import Modal from "../organisms/Modal/Modal"
-import {ReactElement, useState} from "react";
+import {ReactElement, useEffect, useState} from "react";
+import { observer } from "mobx-react-lite";
+import GeolocationStore from "../../stores/GeolocationStore.ts";
+import WeatherStore from "../../stores/WeatherStore.ts";
+import CityStore from "../../stores/CityStore.ts";
 
 interface MainPageTemplateProps {
   onThemeChange: () => void;
@@ -28,6 +32,12 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({onThemeChange}) => {
     isWidgetModalOpen: false,
   });
 
+  useEffect(() => {
+    WeatherStore.fetchCurrentWeather();
+    WeatherStore.fetchForecastCurrentHoursWeather();
+    WeatherStore.fetchForecastThreeDaysWeather();
+    CityStore.fetchCities();
+  }, [GeolocationStore.longitude, GeolocationStore.latitude]);
 
   return (
     <>
@@ -44,4 +54,6 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({onThemeChange}) => {
     }
   </>
   )}
-export default MainPageTemplate
+
+const MainPageTemplateObserver = observer(MainPageTemplate);
+export default MainPageTemplateObserver;
