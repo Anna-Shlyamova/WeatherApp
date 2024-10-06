@@ -23,7 +23,7 @@ export const sidesContainerMixin: SxProps<Theme> = {
 };
 
 export const geolocationMixin: SxProps<Theme> = theme => ({
-  color: theme.palette.action["active"],
+  color: theme.palette.primary.contrastText,
   cursor: "pointer",
   "&:hover": {
     color: theme.palette.primary.main,

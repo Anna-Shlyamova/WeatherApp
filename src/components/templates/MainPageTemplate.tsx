@@ -16,6 +16,7 @@ interface MainPageTemplateProps {
 export type WidgetContext = {
   isWidgetModalOpen: boolean,
   widget?: ReactElement,
+  title?: string,
 }
 const mainMixin: SxProps<Theme> = theme => ({
   width: '100%',
@@ -39,6 +40,9 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({onThemeChange}) => {
     CityStore.fetchCities();
   }, [GeolocationStore.longitude, GeolocationStore.latitude]);
 
+  const handleClose = () => {
+    setWidgetContext({isWidgetModalOpen: false, widget: undefined, title: undefined});
+  };
   return (
     <>
     <Box sx={mainMixin}>
@@ -48,8 +52,9 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({onThemeChange}) => {
     {widgetContext.isWidgetModalOpen &&
         <Modal
             open={widgetContext.isWidgetModalOpen}
-            onClose={()=>setWidgetContext({isWidgetModalOpen: false, widget: undefined})}
+            handleClose={handleClose}
             dialogContent={widgetContext.widget}
+            title={widgetContext.title}
         />
     }
   </>

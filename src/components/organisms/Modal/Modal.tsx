@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react';
+import {FC, ReactElement, ReactNode} from 'react';
 import {
   Box,
   Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, IconButton,
@@ -14,7 +14,7 @@ interface ModalProps {
   dialogActions?: ReactElement | null;
   actionsSx?: SxProps<Theme>;
   onOpen?: ()=> void;
-  onModalClose?: ()=> void;
+  handleClose: ()=> void;
 }
 
 const Modal: FC<DialogProps & ModalProps> = ({
@@ -25,17 +25,18 @@ const Modal: FC<DialogProps & ModalProps> = ({
   titleSx,
   dialogActions,
   actionsSx,
-  onModalClose,
+  handleClose,
   ...props
-})=> (
-  <Dialog sx={sx}{...props}>
-    <Box>
+})=> {
+  return (
+    <Dialog sx={sx}{...props}>
+    <Box sx={{display: 'flex', alignItems: 'center', justifyContent:'space-between'}}>
       <DialogTitle sx={titleSx}>{title}</DialogTitle>
-      <IconButton onClick={(event) => props.onClose && onModalClose && props.onClose(event, 'escapeKeyDown') }><ClearIcon/></IconButton>
+      <IconButton onClick={handleClose}><ClearIcon/></IconButton>
     </Box>
     <DialogContent sx={contentSx}>{dialogContent}</DialogContent>
     <DialogActions sx={actionsSx}>{dialogActions}</DialogActions>
   </Dialog>
-);
+)};
 
 export default Modal;

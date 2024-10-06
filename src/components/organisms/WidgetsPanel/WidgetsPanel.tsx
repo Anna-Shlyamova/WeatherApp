@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 import WidgetsStore from "../../../stores/WidgetsStore.tsx";
 import {FC, useEffect} from "react";
 import Card from "../../molecules/Card/Card"
+import WeatherStore from "../../../stores/WeatherStore.ts";
 
 interface WidgetsPanelProps {
   openModal: (context: WidgetContext)=>void
@@ -17,12 +18,12 @@ const WidgetsPanel: FC<WidgetsPanelProps> = ({
 
   useEffect(() => {
     WidgetsStore.loadDefaultWidgets();
-  }, []);
+  }, [WeatherStore.currentWeather]);
 
   return (
-    <Box sx={mainContainerMixin} onClick={ ()=> openModal({isWidgetModalOpen: true})}>
+    <Box sx={mainContainerMixin}>
       {widgets.map(widget =>
-        <Card key={widget.name} onOpen={ ()=> openModal({isWidgetModalOpen: true, widget: widget.fullLayout})} cardContent={widget.layout}/>
+        <Card key={widget.name} onOpen={ () => openModal({isWidgetModalOpen: true, widget: widget.fullLayout, title: widget.nameRus})} cardContent={widget.layout}/>
       )}
     </Box>
   )}

@@ -14,13 +14,16 @@ const DarkOptions = {
       main: '#34A0FF',
       // light: will be calculated from palette.primary.main,
       // dark: will be calculated from palette.primary.main,
-      // contrastText: will be calculated to contrast with palette.primary.main
+       contrastText: '#FFFAE8',
     },
     secondary: {
-      main: '#E0C2FF',
-      light: '#F5EBFF',
+      main: '#484c4f',
+      //light: '#F5EBFF',
       // dark: will be calculated from palette.secondary.main,
-      contrastText: '#47008F',
+      //contrastText: '#47008F',
+    },
+    inherit:{
+      main: "#F8F4F0",
     },
     action: {
       active: "#F8F4F0",

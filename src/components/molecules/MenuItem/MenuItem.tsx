@@ -15,7 +15,7 @@ const MenuItem: FC<MenuItemProps> = ({value}) => {
     <Box sx={menuItemMixin}>
     <Typography sx={menuItemTextMixin}>{value}</Typography>
       <IconButton>
-        <PushPinIcon/>
+        <PushPinIcon color={"action"}/>
       </IconButton>
     </Box>
   )

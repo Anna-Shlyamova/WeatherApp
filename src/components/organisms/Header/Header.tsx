@@ -38,7 +38,7 @@ return (
       <IconButton
         onClick={handleDrawerClick}
       >
-        <DensityMediumIcon color={"action"}/>
+        <DensityMediumIcon color={"inherit"}/>
       </IconButton>
       <Drawer
         anchor={'left'}

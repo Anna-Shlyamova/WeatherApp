@@ -1,6 +1,6 @@
 import {makeAutoObservable} from "mobx";
 import {City} from "../types/City.ts";
-import {getCityList} from "../api/cityApi/city.api.ts";
+import {fakeApiCities} from "../api/cityFakeApi/cityFakeApi.ts";
 
 class CityStore  {
   private _cities: Array<City> = [];
@@ -16,8 +16,8 @@ class CityStore  {
     this._cities = cities;
   }
 
-  fetchCities = async () => {
-    this._cities = await getCityList();
+  fetchCities = () => {
+    this._cities = fakeApiCities;
   }
 }
 

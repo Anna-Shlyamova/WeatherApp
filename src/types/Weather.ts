@@ -63,7 +63,7 @@ export interface Weather {
   gust_mph: number,
   gust_kph: number,
 }
-export interface ForecastHour extends Weather {
+export type ForecastHour = {
   time_epoch: number,
   time: string,
   will_it_rain: number,

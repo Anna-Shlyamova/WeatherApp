@@ -4,7 +4,9 @@ import {Box, Theme, ThemeProvider} from "@mui/material";
 import darkTheme from "./themes/dark.ts";
 import lightTheme from "./themes/light.ts";
 import GeolocationStore from "./stores/GeolocationStore.ts";
+import { Chart, registerables } from "chart.js/auto";
 
+Chart.register(...registerables);
 
 function App() {
   const [theme, setTheme]= useState<Theme>(darkTheme);

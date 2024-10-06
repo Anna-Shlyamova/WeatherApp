@@ -8,6 +8,9 @@ export const textFieldMixin: SxProps<Theme> = theme => ({
       height: "40px",
     },
   },
+  ".MuiInputBase-input-MuiOutlinedInput-input": {
+      color: theme.palette.action["active"],
+  },
   "& label": {
     "&.Mui-focused": {
       color: theme.palette.action.active,

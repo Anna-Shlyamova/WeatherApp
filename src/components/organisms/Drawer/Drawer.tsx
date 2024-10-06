@@ -23,14 +23,16 @@ const Drawer: FC<DrawerProps> = ({anchor, isOpen, onClose}) => {
       sx={drawerMixin}
     >
       <>
-      <TextField label={'Поиск'} sx={drawerTextFieldMixin} onInput={(event) =>{
+      <TextField label={'Поиск'} value={searchValue ?? ''} sx={drawerTextFieldMixin} onInput={(event) =>{
         setSearchValue(event.target.value);
       }}/>
-      <SimpleBar style={{height: '100%'}}>
+      <SimpleBar style={{maxHeight: 'calc(100% - 55px)', marginTop: '15px'}}>
         {CityStore.cities
-          .filter(city => city.full_name.toLowerCase().includes(searchValue?.toLowerCase()) )
+          .filter(city => searchValue
+          ? city.name.toLowerCase().includes(searchValue?.toLowerCase())
+          : city)
           .map((city)=>
-          <MenuItem value={city.full_name}/>
+          <MenuItem value={city.name}/>
         )}
       </SimpleBar>
       </>
