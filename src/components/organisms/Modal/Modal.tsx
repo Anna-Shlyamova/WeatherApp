@@ -1,4 +1,4 @@
-import {FC, ReactElement, ReactNode} from 'react';
+import {FC, ReactElement} from 'react';
 import {
   Box,
   Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, IconButton,
@@ -29,14 +29,14 @@ const Modal: FC<DialogProps & ModalProps> = ({
   ...props
 })=> {
   return (
-    <Dialog sx={sx}{...props}>
-    <Box sx={{display: 'flex', alignItems: 'center', justifyContent:'space-between'}}>
-      <DialogTitle sx={titleSx}>{title}</DialogTitle>
-      <IconButton onClick={handleClose}><ClearIcon/></IconButton>
-    </Box>
-    <DialogContent sx={contentSx}>{dialogContent}</DialogContent>
-    <DialogActions sx={actionsSx}>{dialogActions}</DialogActions>
-  </Dialog>
+    <Dialog sx={sx} {...props}>
+      <Box sx={{display: 'flex', alignItems: 'center', justifyContent:'space-between'}}>
+        <DialogTitle sx={titleSx}>{title}</DialogTitle>
+        <IconButton onClick={handleClose}><ClearIcon/></IconButton>
+      </Box>
+      <DialogContent sx={contentSx}>{dialogContent}</DialogContent>
+      <DialogActions sx={actionsSx}>{dialogActions}</DialogActions>
+    </Dialog>
 )};
 
 export default Modal;

@@ -18,7 +18,7 @@ const WidgetsPanel: FC<WidgetsPanelProps> = ({
 
   useEffect(() => {
     WidgetsStore.loadDefaultWidgets();
-  }, [WeatherStore.currentWeather]);
+  }, [WeatherStore.currentWeather, WeatherStore.forecastCurrentHoursWeather]);
 
   return (
     <Box sx={mainContainerMixin}>

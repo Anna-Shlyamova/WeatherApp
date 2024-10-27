@@ -60,6 +60,7 @@ class WeatherStore  {
         `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
       );
     }
+    console.log(this.forecastCurrentHoursWeather);
   }
 }
 
