@@ -1,4 +1,4 @@
-import {City} from "../../types/City.ts";
+import { City } from "../../types/City.ts"
 
 export const fakeApiCities: Array<City> = [
   {
@@ -7,7 +7,7 @@ export const fakeApiCities: Array<City> = [
     longitude: 37.61556,
     cityId: 524901,
     name: "Москва",
-    english: "Moskow"
+    english: "Moskow",
   },
   {
     id: "wqv8g7QHFJ",
@@ -15,7 +15,7 @@ export const fakeApiCities: Array<City> = [
     longitude: 30.31413,
     cityId: 498817,
     name: "Санкт-Петербург",
-    english: "Saint Petersburg"
+    english: "Saint Petersburg",
   },
   {
     id: "xemrMpTYBC",
@@ -23,7 +23,7 @@ export const fakeApiCities: Array<City> = [
     longitude: 28.3496,
     cityId: 504341,
     name: "Псков",
-    english: "Pskov"
+    english: "Pskov",
   },
   {
     id: "fnXWovwMHG",
@@ -31,7 +31,7 @@ export const fakeApiCities: Array<City> = [
     longitude: 40.97139,
     cityId: 555312,
     name: "Иваново",
-    english: "Ivanovo"
+    english: "Ivanovo",
   },
   {
     id: "cyhouKvzBC",
@@ -39,7 +39,7 @@ export const fakeApiCities: Array<City> = [
     longitude: 44.002,
     cityId: 22401,
     name: "Нижний Новгород",
-    english: "Nizhny Novgorod"
+    english: "Nizhny Novgorod",
   },
   {
     id: "EwO9A4ke9Q",
@@ -47,7 +47,7 @@ export const fakeApiCities: Array<City> = [
     longitude: 39.41394,
     cityId: 501183,
     name: "Ростов",
-    english: "Rostov"
+    english: "Rostov",
   },
   {
     id: "BnRzAYrtxz",
@@ -55,6 +55,6 @@ export const fakeApiCities: Array<City> = [
     longitude: 39.72569,
     cityId: 491422,
     name: "Сочи",
-    english: "Sochi"
+    english: "Sochi",
   },
-];
+]

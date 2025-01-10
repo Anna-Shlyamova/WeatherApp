@@ -1,24 +1,33 @@
-import {FC} from 'react';
+import { FC } from "react"
+import { Box, IconButton, Typography } from "@mui/material"
 import {
-  Box, IconButton,
-  Typography,
-} from '@mui/material';
-import {menuItemMixin, menuItemTextMixin} from "./MenuItem.styles.ts";
-import PushPinIcon from '@mui/icons-material/PushPin';
+  menuItemMixin,
+  menuItemTextMixin,
+  pushPinIconMixin,
+} from "./MenuItem.styles.ts"
+import PushPinIcon from "@mui/icons-material/PushPin"
+import { City } from "../../../types/City.ts"
+import CityStore from "../../../stores/CityStore.ts"
 
 interface MenuItemProps {
-  value: string
+  city: City
+  handleChangeCity: (city: City) => void
 }
 
-const MenuItem: FC<MenuItemProps> = ({value}) => {
+const MenuItem: FC<MenuItemProps> = ({ city, handleChangeCity }) => {
+  const pinCity = () => {
+    const { pinned, ...body } = city
+    CityStore.updateCities({ ...body, pinned: !pinned })
+  }
+
   return (
-    <Box sx={menuItemMixin}>
-    <Typography sx={menuItemTextMixin}>{value}</Typography>
-      <IconButton>
-        <PushPinIcon color={"action"}/>
+    <Box sx={menuItemMixin} onClick={() => handleChangeCity(city)}>
+      <Typography sx={menuItemTextMixin}>{city.name}</Typography>
+      <IconButton onClick={pinCity}>
+        <PushPinIcon color={"action"} sx={pushPinIconMixin(city.pinned)} />
       </IconButton>
     </Box>
   )
-};
+}
 
-export default MenuItem;
+export default MenuItem

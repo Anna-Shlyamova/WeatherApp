@@ -1,67 +1,71 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable } from "mobx"
 import {
   getCurrentWeather,
   getForecastCurrentHoursWeather,
-  getForecastThreeDaysWeather
-} from "../api/weatherApi/weather.api.ts";
-import GeolocationStore from "./GeolocationStore.ts";
-import {CurrentWeather, ForecastHour, ForecastWeather} from "../types/Weather.ts";
+  getForecastThreeDaysWeather,
+} from "../api/weatherApi/weather.api.ts"
+import GeolocationStore from "./GeolocationStore.ts"
+import {
+  CurrentWeather,
+  ForecastHour,
+  ForecastWeather,
+} from "../types/Weather.ts"
 
-class WeatherStore  {
-  private _currentWeather: CurrentWeather | undefined = undefined;
-  private _forecastThreeDaysWeather: Array<ForecastWeather> = [];
-  private _forecastCurrentHoursWeather: Array<ForecastHour> = [];
+class WeatherStore {
+  private _currentWeather: CurrentWeather | undefined = undefined
+  private _forecastThreeDaysWeather: Array<ForecastWeather> = []
+  private _forecastCurrentHoursWeather: Array<ForecastHour> = []
 
   constructor() {
-    makeAutoObservable<WeatherStore>(this);
+    makeAutoObservable<WeatherStore>(this)
   }
 
   get currentWeather() {
-    return this._currentWeather;
+    return this._currentWeather
   }
 
   set currentWeather(currentWeather) {
-    this._currentWeather = currentWeather;
+    this._currentWeather = currentWeather
   }
 
   get forecastThreeDaysWeather() {
-    return this._forecastThreeDaysWeather;
+    return this._forecastThreeDaysWeather
   }
 
   set forecastThreeDaysWeather(threeDaysWeather) {
-    this._forecastThreeDaysWeather = threeDaysWeather;
+    this._forecastThreeDaysWeather = threeDaysWeather
   }
 
   get forecastCurrentHoursWeather() {
-    return this._forecastCurrentHoursWeather;
+    return this._forecastCurrentHoursWeather
   }
 
   set forecastCurrentHoursWeather(currentHoursWeather) {
-    this._forecastCurrentHoursWeather = currentHoursWeather;
+    this._forecastCurrentHoursWeather = currentHoursWeather
   }
 
-  fetchCurrentWeather = async () =>{
-    if(GeolocationStore.longitude && GeolocationStore.latitude) {
+  fetchCurrentWeather = async () => {
+    if (GeolocationStore.longitude && GeolocationStore.latitude) {
       this._currentWeather = await getCurrentWeather(
         `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
-      );
+      )
     }
   }
-  fetchForecastThreeDaysWeather = async () =>{
-    if(GeolocationStore.longitude && GeolocationStore.latitude) {
+  fetchForecastThreeDaysWeather = async () => {
+    if (GeolocationStore.longitude && GeolocationStore.latitude) {
       this._forecastThreeDaysWeather = await getForecastThreeDaysWeather(
         `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
-      );
+      )
     }
   }
-  fetchForecastCurrentHoursWeather = async () =>{
-    if(GeolocationStore.longitude && GeolocationStore.latitude) {
+  fetchForecastCurrentHoursWeather = async () => {
+    if (GeolocationStore.longitude && GeolocationStore.latitude) {
       this._forecastCurrentHoursWeather = await getForecastCurrentHoursWeather(
         `${GeolocationStore.latitude}, ${GeolocationStore.longitude}`
-      );
+      )
     }
-    console.log(this.forecastCurrentHoursWeather);
+    console.log(this.forecastCurrentHoursWeather)
   }
 }
 
-export default new WeatherStore();
+export default new WeatherStore()

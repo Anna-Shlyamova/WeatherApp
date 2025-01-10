@@ -1,4 +1,4 @@
-import ContentLoader, {type IContentLoaderProps} from "react-content-loader";
+import ContentLoader, { type IContentLoaderProps } from "react-content-loader"
 
 const Loader = (props: IContentLoaderProps) => (
   <ContentLoader
@@ -6,7 +6,7 @@ const Loader = (props: IContentLoaderProps) => (
     width={200}
     height={160}
     viewBox="0 0 200 160"
-    backgroundColor= "#2C2B2C"
+    backgroundColor="#2C2B2C"
     foregroundColor="#ecebeb"
     {...props}
   >
@@ -14,4 +14,4 @@ const Loader = (props: IContentLoaderProps) => (
   </ContentLoader>
 )
 
-export default Loader;
+export default Loader

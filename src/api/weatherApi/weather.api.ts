@@ -1,44 +1,54 @@
-import axios from 'axios';
-import {CurrentWeather, ForecastHour, ForecastWeather} from "../../types/Weather.ts";
-
+import axios from "axios"
+import {
+  CurrentWeather,
+  ForecastHour,
+  ForecastWeather,
+} from "../../types/Weather.ts"
 
 const http = axios.create({
-  baseURL: 'http://api.weatherapi.com/v1',
-});
+  baseURL: "http://api.weatherapi.com/v1",
+})
 
 const apiKey = "fb2c9586423545a49d9195553242907"
 
-export const getCurrentWeather = (coords?: string):  Promise<CurrentWeather> => {
+export const getCurrentWeather = (coords?: string): Promise<CurrentWeather> => {
   return http
-    .get('current.json', { params: {
+    .get("current.json", {
+      params: {
         key: apiKey,
         q: coords,
-        lang: 'ru',
-      }
+        lang: "ru",
+      },
     })
-    .then(value => value.data.current);
-};
+    .then((value) => value.data.current)
+}
 
-export const getForecastThreeDaysWeather = (coords?: string):  Promise<Array<ForecastWeather>> => {
+export const getForecastThreeDaysWeather = (
+  coords?: string
+): Promise<Array<ForecastWeather>> => {
   return http
-    .get('forecast.json', { params: {
+    .get("forecast.json", {
+      params: {
         key: apiKey,
         q: coords,
         days: 3,
-        lang: 'ru',
-      }
+        lang: "ru",
+      },
     })
-    .then(value => value.data.forecast.forecastday);
-};
+    .then((value) => value.data.forecast.forecastday)
+}
 
-export const getForecastCurrentHoursWeather = (coords?: string):  Promise<Array<ForecastHour>> => {
+export const getForecastCurrentHoursWeather = (
+  coords?: string
+): Promise<Array<ForecastHour>> => {
   return http
-    .get('forecast.json', { params: {
+    .get("forecast.json", {
+      params: {
         key: apiKey,
         q: coords,
         days: 1,
-        lang: 'ru',
-      }
+        lang: "ru",
+      },
     })
-    .then(value => value.data.forecast.forecastday[0].hour);
-};
+    .then((value) => value.data.forecast.forecastday[0].hour)
+}
