@@ -10,6 +10,18 @@ import WeatherStore from "../../stores/WeatherStore.ts"
 import CityStore from "../../stores/CityStore.ts"
 import Drawer from "../organisms/Drawer/Drawer.tsx"
 import { City } from "../../types/City.ts"
+import {
+  closestCenter,
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core"
+import { restrictToParentElement } from "@dnd-kit/modifiers"
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable"
+import widgetsStore from "../../stores/WidgetsStore.tsx"
 
 interface MainPageTemplateProps {
   onThemeChange: () => void
@@ -61,8 +73,35 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
     GeolocationStore.setCoordinates(city.longitude, city.latitude)
   }
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+
+    if (active.id !== over?.id) {
+      const oldIndex = widgetsStore.data
+        .map((widget) => widget.id)
+        .indexOf(`${active.id}`)
+      const newIndex = widgetsStore.data
+        .map((widget) => widget.id)
+        .indexOf(`${over?.id}`)
+
+      widgetsStore.data = arrayMove(widgetsStore.data, oldIndex, newIndex)
+    }
+  }
+
   return (
-    <>
+    <DndContext
+      modifiers={[restrictToParentElement]}
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+    >
       <Box sx={mainMixin}>
         <Header
           onThemeChange={onThemeChange}
@@ -84,7 +123,7 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
           title={widgetContext.title}
         />
       )}
-    </>
+    </DndContext>
   )
 }
 

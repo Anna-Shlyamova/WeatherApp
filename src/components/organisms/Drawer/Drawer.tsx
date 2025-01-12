@@ -34,7 +34,6 @@ const Drawer: FC<DrawerProps> = ({
             : city
         )
         .sort((a, b) => {
-          console.log("renderParent")
           if (a.pinned === b.pinned) {
             return 0
           }

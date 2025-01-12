@@ -1,3 +1,4 @@
+import { Transform } from "@dnd-kit/utilities"
 import { SxProps, Theme } from "@mui/material"
 
 export const CardContainerMixin: SxProps<Theme> = (theme) => ({
@@ -9,4 +10,14 @@ export const CardContainerMixin: SxProps<Theme> = (theme) => ({
   height: "100%",
   border: "solid 1px",
   borderColor: theme.palette.secondary.main,
+})
+
+export const CardContainerDraggableMixin = (
+  transform: Transform | null,
+  transition?: string
+): SxProps => ({
+  transform: transform
+    ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+    : undefined,
+  transition: transition ?? undefined,
 })

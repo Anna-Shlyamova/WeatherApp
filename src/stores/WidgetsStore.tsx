@@ -9,7 +9,7 @@ import { ChartOptions, ChartData } from "chart.js"
 import { isNullOrUndef } from "chart.js/helpers"
 
 class WidgetsStore {
-  protected _data: Array<Widget> = []
+  private _data: Array<Widget> = []
 
   constructor() {
     makeAutoObservable<WidgetsStore>(this)
@@ -26,6 +26,7 @@ class WidgetsStore {
   loadDefaultWidgets = () => {
     this.data = [
       {
+        id: "temp_c",
         name: "temp_c",
         nameRus: "Температура",
         layout: (
@@ -61,6 +62,7 @@ class WidgetsStore {
         ),
       },
       {
+        id: "wind",
         name: "wind",
         nameRus: "Ветер",
         layout: (
@@ -96,6 +98,7 @@ class WidgetsStore {
         ),
       },
       {
+        id: "humidity",
         name: "humidity",
         nameRus: "Влажность",
         layout: (
@@ -131,6 +134,7 @@ class WidgetsStore {
         ),
       },
       {
+        id: "uvIndex",
         name: "uvIndex",
         nameRus: "УФ-Индекс",
         layout: (

@@ -6,6 +6,7 @@ import WidgetsStore from "../../../stores/WidgetsStore.tsx"
 import { FC, useEffect } from "react"
 import Card from "../../molecules/Card/Card"
 import WeatherStore from "../../../stores/WeatherStore.ts"
+import { useDroppable } from "@dnd-kit/core"
 
 interface WidgetsPanelProps {
   openModal: (context: WidgetContext) => void
@@ -18,8 +19,12 @@ const WidgetsPanel: FC<WidgetsPanelProps> = ({ openModal }) => {
     WidgetsStore.loadDefaultWidgets()
   }, [WeatherStore.currentWeather, WeatherStore.forecastCurrentHoursWeather])
 
+  const { setNodeRef } = useDroppable({
+    id: "droppableWidgetPanel",
+  })
+
   return (
-    <Box sx={mainContainerMixin}>
+    <Box sx={mainContainerMixin} ref={setNodeRef}>
       {widgets.map((widget) => (
         <Card
           key={widget.name}
@@ -31,6 +36,7 @@ const WidgetsPanel: FC<WidgetsPanelProps> = ({ openModal }) => {
             })
           }
           cardContent={widget.layout}
+          id={widget.id}
         />
       ))}
     </Box>
