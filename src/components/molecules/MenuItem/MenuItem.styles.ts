@@ -21,4 +21,5 @@ export const menuItemTextMixin: SxProps<Theme> = (theme) => ({
 export const pushPinIconMixin = (pinned?: boolean): SxProps => ({
   transform: pinned ? "rotate(90deg)" : "none",
   transition: "transform 0.1s ease",
+  zIndex: "100",
 })

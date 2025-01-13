@@ -20,7 +20,6 @@ const Header: React.FC<HeaderProps> = ({ onThemeChange, handleDrawerOpen }) => {
   const [geo, setGeo] = useState("")
 
   const getLocation = () => {
-    GeolocationStore.fetchCoordinates()
     getCurrentLocation(
       `${GeolocationStore.longitude}, ${GeolocationStore.latitude}`
     ).then((res) => setGeo(res ?? ""))
@@ -35,15 +34,15 @@ const Header: React.FC<HeaderProps> = ({ onThemeChange, handleDrawerOpen }) => {
   return (
     <Box sx={headerContainerMixin}>
       <Box sx={sidesContainerMixin}>
-        <IconButton onClick={handleDrawerOpen}>
-          <DensityMediumIcon color={"inherit"} />
-        </IconButton>
         <Switch onChange={onThemeChange} />
       </Box>
-      <Box sx={combineSx(sidesContainerMixin, { width: "12%" })}>
+      <Box sx={combineSx(sidesContainerMixin, { width: "15%" })}>
         <Typography sx={geolocationMixin} onClick={() => getLocation}>
           {geo ? geo : "Ваша геолокация"}
         </Typography>
+        <IconButton onClick={handleDrawerOpen}>
+          <DensityMediumIcon color={"inherit"} />
+        </IconButton>
       </Box>
     </Box>
   )

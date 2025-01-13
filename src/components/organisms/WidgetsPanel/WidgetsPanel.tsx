@@ -35,8 +35,7 @@ const WidgetsPanel: FC<WidgetsPanelProps> = ({ openModal }) => {
               title: widget.nameRus,
             })
           }
-          cardContent={widget.layout}
-          id={widget.id}
+          widget={widget}
         />
       ))}
     </Box>

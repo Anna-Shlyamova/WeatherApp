@@ -1,23 +1,23 @@
-import { FC, ReactElement } from "react"
-import { Box, SxProps, Theme } from "@mui/material"
+import { FC } from "react"
+import { Box, SxProps, Theme, Typography } from "@mui/material"
 import { combineSx } from "../../../utils/combineSx.ts"
 import {
   CardContainerDraggableMixin,
   CardContainerMixin,
+  CardTextMixin,
 } from "./Card.styles.ts"
-import { useDraggable } from "@dnd-kit/core"
 import { useSortable } from "@dnd-kit/sortable"
+import { Widget } from "../../../types/Widget.ts"
 
 interface CardProps {
-  cardContent?: ReactElement | null
   contentSx?: SxProps<Theme>
   onOpen?: () => void
-  id: string
+  widget: Widget
 }
 
-const Card: FC<CardProps> = ({ cardContent, contentSx, onOpen, id }) => {
+const Card: FC<CardProps> = ({ contentSx, onOpen, widget }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: id })
+    useSortable({ id: widget.id })
 
   return (
     <Box
@@ -31,7 +31,8 @@ const Card: FC<CardProps> = ({ cardContent, contentSx, onOpen, id }) => {
       {...listeners}
       {...attributes}
     >
-      {cardContent}
+      <Typography sx={CardTextMixin}>{widget.nameRus}</Typography>
+      {widget.layout}
     </Box>
   )
 }

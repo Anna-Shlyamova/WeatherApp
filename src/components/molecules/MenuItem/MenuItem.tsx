@@ -23,7 +23,13 @@ const MenuItem: FC<MenuItemProps> = ({ city, handleChangeCity }) => {
   return (
     <Box sx={menuItemMixin} onClick={() => handleChangeCity(city)}>
       <Typography sx={menuItemTextMixin}>{city.name}</Typography>
-      <IconButton onClick={pinCity}>
+      <IconButton
+        onClick={(event): void => {
+          event.stopPropagation()
+          pinCity()
+        }}
+        sx={{ zIndex: "100" }}
+      >
         <PushPinIcon color={"action"} sx={pushPinIconMixin(city.pinned)} />
       </IconButton>
     </Box>

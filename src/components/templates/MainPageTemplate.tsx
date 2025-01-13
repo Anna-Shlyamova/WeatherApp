@@ -7,7 +7,6 @@ import React, { ReactElement, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import GeolocationStore from "../../stores/GeolocationStore.ts"
 import WeatherStore from "../../stores/WeatherStore.ts"
-import CityStore from "../../stores/CityStore.ts"
 import Drawer from "../organisms/Drawer/Drawer.tsx"
 import { City } from "../../types/City.ts"
 import {
@@ -54,7 +53,6 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
     WeatherStore.fetchCurrentWeather()
     WeatherStore.fetchForecastCurrentHoursWeather()
     WeatherStore.fetchForecastThreeDaysWeather()
-    CityStore.fetchCities()
   }, [GeolocationStore.longitude, GeolocationStore.latitude])
 
   const handleWidgetModalClose = () => {
@@ -108,7 +106,7 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
           handleDrawerOpen={() => setIsDrawerOpen(true)}
         />
         <Drawer
-          anchor={"left"}
+          anchor={"right"}
           isOpen={isDrawerOpen}
           onClose={handleDrawerClose}
           handleChangeCity={handleChangeCity}
