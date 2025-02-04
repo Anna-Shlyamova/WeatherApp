@@ -28,7 +28,6 @@ const MenuItem: FC<MenuItemProps> = ({ city, handleChangeCity }) => {
           event.stopPropagation()
           pinCity()
         }}
-        sx={{ zIndex: "100" }}
       >
         <PushPinIcon color={"action"} sx={pushPinIconMixin(city.pinned)} />
       </IconButton>

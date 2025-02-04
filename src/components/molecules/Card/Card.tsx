@@ -16,8 +16,15 @@ interface CardProps {
 }
 
 const Card: FC<CardProps> = ({ contentSx, onOpen, widget }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: widget.id })
+
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging, } =
+    useSortable({
+      id: widget.id,
+      transition: {
+        duration: 150,
+        easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+      },
+    });
 
   return (
     <Box
@@ -25,7 +32,7 @@ const Card: FC<CardProps> = ({ contentSx, onOpen, widget }) => {
       sx={combineSx(
         CardContainerMixin,
         contentSx,
-        CardContainerDraggableMixin(transform, transition)
+        CardContainerDraggableMixin(transform, transition, isDragging)
       )}
       ref={setNodeRef}
       {...listeners}

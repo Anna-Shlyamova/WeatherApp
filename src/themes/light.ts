@@ -28,7 +28,7 @@ const lightOptions = {
     action: {
       active: "#F8F4F0",
       hover: "#C4E1F0",
-      selected: "#F8F4F0",
+      selected: "#9FD3F0",
       // light: will be calculated from palette.primary.main,
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main

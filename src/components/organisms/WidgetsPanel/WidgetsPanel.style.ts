@@ -8,8 +8,6 @@ export const mainContainerMixin: SxProps<Theme> = (theme) => ({
   position: "absolute",
   bottom: 0,
   left: 0,
-  zIndex: "100",
-  p: "0 30px",
   backgroundColor: theme.palette.grey[200],
   boxShadow: "none",
   opacity: "0.95",

@@ -1,7 +1,7 @@
 import Header from "../organisms/Header/Header"
 import { Box, SxProps, Theme } from "@mui/material"
 import sunny from "../../images/sunny.gif"
-import VidgetsPanel from "../organisms/WidgetsPanel/WidgetsPanel.tsx"
+import WidgetsPanel from "../organisms/WidgetsPanel/WidgetsPanel.tsx"
 import Modal from "../organisms/Modal/Modal"
 import React, { ReactElement, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
@@ -12,14 +12,13 @@ import { City } from "../../types/City.ts"
 import {
   closestCenter,
   DndContext,
-  DragEndEvent,
-  KeyboardSensor,
-  PointerSensor,
+  DragEndEvent, KeyboardSensor,
+  MouseSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core"
 import { restrictToParentElement } from "@dnd-kit/modifiers"
-import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable"
+import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable"
 import widgetsStore from "../../stores/WidgetsStore.tsx"
 
 interface MainPageTemplateProps {
@@ -71,11 +70,16 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
     GeolocationStore.setCoordinates(city.longitude, city.latitude)
   }
 
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      delay: 120,
+      tolerance: 20,
+    },
+  });
+
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
+    mouseSensor,
+    useSensor(KeyboardSensor, {coordinateGetter: sortableKeyboardCoordinates})
   )
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -111,7 +115,7 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
           onClose={handleDrawerClose}
           handleChangeCity={handleChangeCity}
         />
-        <VidgetsPanel openModal={setWidgetContext} />
+        <WidgetsPanel openModal={setWidgetContext} />
       </Box>
       {widgetContext.isWidgetModalOpen && (
         <Modal

@@ -6,7 +6,7 @@ import WidgetsStore from "../../../stores/WidgetsStore.tsx"
 import { FC, useEffect } from "react"
 import Card from "../../molecules/Card/Card"
 import WeatherStore from "../../../stores/WeatherStore.ts"
-import { useDroppable } from "@dnd-kit/core"
+import {horizontalListSortingStrategy, SortableContext} from "@dnd-kit/sortable";
 
 interface WidgetsPanelProps {
   openModal: (context: WidgetContext) => void
@@ -19,25 +19,23 @@ const WidgetsPanel: FC<WidgetsPanelProps> = ({ openModal }) => {
     WidgetsStore.loadDefaultWidgets()
   }, [WeatherStore.currentWeather, WeatherStore.forecastCurrentHoursWeather])
 
-  const { setNodeRef } = useDroppable({
-    id: "droppableWidgetPanel",
-  })
-
   return (
-    <Box sx={mainContainerMixin} ref={setNodeRef}>
-      {widgets.map((widget) => (
-        <Card
-          key={widget.name}
-          onOpen={() =>
-            openModal({
-              isWidgetModalOpen: true,
-              widget: widget.fullLayout,
-              title: widget.nameRus,
-            })
-          }
-          widget={widget}
-        />
-      ))}
+    <Box sx={mainContainerMixin}>
+      <SortableContext items={widgets} strategy={horizontalListSortingStrategy}>
+        {widgets.map((widget) => (
+          <Card
+            key={widget.name}
+            onOpen={() =>
+              openModal({
+                isWidgetModalOpen: true,
+                widget: widget.fullLayout,
+                title: widget.nameRus,
+              })
+            }
+            widget={widget}
+          />
+        ))}
+      </SortableContext>
     </Box>
   )
 }

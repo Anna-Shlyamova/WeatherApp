@@ -9,7 +9,7 @@ export const headerContainerMixin: SxProps<Theme> = (theme) => ({
   position: "absolute",
   top: 0,
   left: 0,
-  zIndex: "100",
+  zIndex: "2",
   p: "0 30px",
   backgroundColor: theme.palette.grey[200],
   boxShadow: "none",
