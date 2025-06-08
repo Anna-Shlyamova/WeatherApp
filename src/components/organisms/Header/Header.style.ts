@@ -1,6 +1,6 @@
-import { type SxProps, type Theme } from "@mui/material"
+import { type SxProps, type Theme } from "@mui/material";
 
-export const headerContainerMixin: SxProps<Theme> = (theme) => ({
+export const headerContainerMixin: SxProps<Theme> = theme => ({
   height: "80px",
   width: "100%",
   display: "flex",
@@ -14,15 +14,16 @@ export const headerContainerMixin: SxProps<Theme> = (theme) => ({
   backgroundColor: theme.palette.grey[200],
   boxShadow: "none",
   opacity: "0.95",
-})
+});
+
 export const sidesContainerMixin: SxProps<Theme> = {
   width: "8%",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-}
+};
 
-export const geolocationMixin: SxProps<Theme> = (theme) => ({
+export const geolocationMixin: SxProps<Theme> = theme => ({
   color: theme.palette.primary.contrastText,
   cursor: "pointer",
   "&:hover": {
@@ -31,4 +32,4 @@ export const geolocationMixin: SxProps<Theme> = (theme) => ({
   "&:active": {
     color: theme.palette.primary.dark,
   },
-})
+});

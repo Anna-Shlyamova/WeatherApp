@@ -1,39 +1,29 @@
-import { FC } from "react"
-import { Box, SxProps, Theme, Typography } from "@mui/material"
-import { combineSx } from "../../../utils/combineSx.ts"
-import {
-  CardContainerDraggableMixin,
-  CardContainerMixin,
-  CardTextMixin,
-} from "./Card.styles.ts"
-import { useSortable } from "@dnd-kit/sortable"
-import { Widget } from "../../../types/Widget.ts"
+import { FC } from "react";
+import { Box, SxProps, Theme, Typography } from "@mui/material";
+import { combineSx } from "../../../utils/combineSx.ts";
+import { CardContainerDraggableMixin, CardContainerMixin, CardTextMixin } from "./Card.styles.ts";
+import { useSortable } from "@dnd-kit/sortable";
+import { Widget } from "../../../types/Widget.ts";
 
 interface CardProps {
-  contentSx?: SxProps<Theme>
-  onOpen?: () => void
-  widget: Widget
+  contentSx?: SxProps<Theme>;
+  onOpen?: () => void;
+  widget: Widget;
 }
 
 const Card: FC<CardProps> = ({ contentSx, onOpen, widget }) => {
-
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging, } =
-    useSortable({
-      id: widget.id,
-      transition: {
-        duration: 150,
-        easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
-      },
-    });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: widget.id,
+    transition: {
+      duration: 150,
+      easing: "cubic-bezier(0.25, 1, 0.5, 1)",
+    },
+  });
 
   return (
     <Box
       onClick={onOpen}
-      sx={combineSx(
-        CardContainerMixin,
-        contentSx,
-        CardContainerDraggableMixin(transform, transition, isDragging)
-      )}
+      sx={combineSx(CardContainerMixin, contentSx, CardContainerDraggableMixin(transform, transition, isDragging))}
       ref={setNodeRef}
       {...listeners}
       {...attributes}
@@ -41,7 +31,7 @@ const Card: FC<CardProps> = ({ contentSx, onOpen, widget }) => {
       <Typography sx={CardTextMixin}>{widget.nameRus}</Typography>
       {widget.layout}
     </Box>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

@@ -1,6 +1,6 @@
-import { SxProps, Theme } from "@mui/material"
+import { SxProps, Theme } from "@mui/material";
 
-export const mainContainerMixin: SxProps<Theme> = (theme) => ({
+export const mainContainerMixin: SxProps<Theme> = theme => ({
   height: "30%",
   width: "100%",
   display: "grid",
@@ -11,4 +11,4 @@ export const mainContainerMixin: SxProps<Theme> = (theme) => ({
   backgroundColor: theme.palette.grey[200],
   boxShadow: "none",
   opacity: "0.95",
-})
+});

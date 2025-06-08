@@ -1,8 +1,10 @@
+import { ReactElement } from "react";
+
 export interface Widget {
-  id: string
-  name: string
-  nameRus: string
-  layout: React.ReactElement
-  fullLayout: React.ReactElement
-  previewLayout: React.ReactElement
+  id: string;
+  name: string;
+  nameRus: string;
+  layout: ReactElement;
+  fullLayout: ReactElement;
+  previewLayout: ReactElement;
 }

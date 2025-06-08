@@ -1,4 +1,4 @@
-import { createTheme, PaletteMode } from "@mui/material"
+import { createTheme, PaletteMode } from "@mui/material";
 
 const DarkOptions = {
   typography: {
@@ -41,7 +41,7 @@ const DarkOptions = {
       default: "#3C3F41",
     },
   },
-}
+};
 
-const darkTheme = createTheme(DarkOptions)
-export default darkTheme
+const darkTheme = createTheme(DarkOptions);
+export default darkTheme;

@@ -1,4 +1,4 @@
-import { SxProps, Theme } from "@mui/material"
+import { SxProps, Theme } from "@mui/material";
 
 export const drawerMixin: SxProps<Theme> = (theme) => ({
   ".MuiPaper-root": {
@@ -10,5 +10,5 @@ export const drawerMixin: SxProps<Theme> = (theme) => ({
 export const drawerTextFieldMixin: SxProps = {
   "&.MuiFormControl-root": {
     mx: "15px",
-  }
+  },
 };

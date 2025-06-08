@@ -1,10 +1,10 @@
-import axios from "axios"
+import axios from "axios";
 
 const http = axios.create({
   baseURL: "https://geocode-maps.yandex.ru",
-})
+});
 
-const key = "c90e25ff-17ad-4ac1-bb70-685a54768ba8"
+const key = "c90e25ff-17ad-4ac1-bb70-685a54768ba8";
 export const getLocation = (coords?: string): Promise<string> => {
   return http
     .get("1.x", {
@@ -18,8 +18,5 @@ export const getLocation = (coords?: string): Promise<string> => {
         results: 1,
       },
     })
-    .then(
-      (value) =>
-        value.data.response.GeoObjectCollection.featureMember[0].GeoObject.name
-    )
-}
+    .then(value => value.data.response.GeoObjectCollection.featureMember[0].GeoObject.name);
+};

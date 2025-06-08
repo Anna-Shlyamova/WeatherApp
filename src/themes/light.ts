@@ -1,4 +1,4 @@
-import { createTheme, PaletteMode } from "@mui/material"
+import { createTheme, PaletteMode } from "@mui/material";
 
 const lightOptions = {
   typography: {
@@ -43,6 +43,6 @@ const lightOptions = {
   },
 }
 
-const lightTheme = createTheme(lightOptions)
+const lightTheme = createTheme(lightOptions);
 
-export default lightTheme
+export default lightTheme;

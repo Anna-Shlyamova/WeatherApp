@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react"
+import { FC, ReactElement } from "react";
 import {
   Box,
   Dialog,
@@ -9,17 +9,17 @@ import {
   IconButton,
   SxProps,
   Theme,
-} from "@mui/material"
-import ClearIcon from "@mui/icons-material/Clear"
+} from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 
 interface ModalProps {
-  dialogContent?: ReactElement | null
-  contentSx?: SxProps<Theme>
-  titleSx?: SxProps<Theme>
-  dialogActions?: ReactElement | null
-  actionsSx?: SxProps<Theme>
-  onOpen?: () => void
-  handleClose: () => void
+  dialogContent?: ReactElement | null;
+  contentSx?: SxProps<Theme>;
+  titleSx?: SxProps<Theme>;
+  dialogActions?: ReactElement | null;
+  actionsSx?: SxProps<Theme>;
+  onOpen?: () => void;
+  handleClose: () => void;
 }
 
 const Modal: FC<DialogProps & ModalProps> = ({
@@ -50,7 +50,7 @@ const Modal: FC<DialogProps & ModalProps> = ({
       <DialogContent sx={contentSx}>{dialogContent}</DialogContent>
       <DialogActions sx={actionsSx}>{dialogActions}</DialogActions>
     </Dialog>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

@@ -1,8 +1,9 @@
-import {getLocation} from "../api/geocodeApi/geocode.api";
+import { getLocation } from "../api/geocodeApi/geocode.api";
 
 export const getCurrentLocation = async (coords: string | undefined): Promise<string | undefined> => {
-  try{
+  try {
     return await getLocation(coords);
+  } catch (err) {
+    console.log(err);
   }
-  catch (err) {console.log(err)}
-}
+};

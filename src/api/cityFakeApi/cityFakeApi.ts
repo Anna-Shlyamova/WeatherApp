@@ -1,4 +1,4 @@
-import { City } from "../../types/City.ts"
+import { City } from "../../types/City.ts";
 
 export const fakeApiCities: Array<City> = [
   {
@@ -57,4 +57,4 @@ export const fakeApiCities: Array<City> = [
     name: "Сочи",
     english: "Sochi",
   },
-]
+];

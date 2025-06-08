@@ -1,6 +1,6 @@
-import { SxProps, Theme } from "@mui/material"
+import { SxProps, Theme } from "@mui/material";
 
-export const textFieldMixin: SxProps<Theme> = (theme) => ({
+export const textFieldMixin: SxProps<Theme> = theme => ({
   ".MuiInputBase-root": {
     height: "40px",
     ".MuiInputBase-input": {
@@ -20,4 +20,4 @@ export const textFieldMixin: SxProps<Theme> = (theme) => ({
     color: theme.palette.action.active,
     top: "-6px",
   },
-})
+});

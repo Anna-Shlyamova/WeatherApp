@@ -1,54 +1,51 @@
-import { Box, IconButton, Switch, Typography } from "@mui/material"
-import DensityMediumIcon from "@mui/icons-material/DensityMedium"
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import {
-  geolocationMixin,
-  headerContainerMixin,
-  sidesContainerMixin,
-} from "./Header.style"
-import { combineSx } from "../../../utils/combineSx"
-import React, { useEffect, useState } from "react"
-import { getCurrentLocation } from "../../../utils/locationUtils"
-import { observer } from "mobx-react-lite"
-import GeolocationStore from "../../../stores/GeolocationStore"
+import { Box, IconButton, Switch, Typography } from "@mui/material";
+import DensityMediumIcon from "@mui/icons-material/DensityMedium";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import { geolocationMixin, headerContainerMixin, sidesContainerMixin } from "./Header.style";
+import { combineSx } from "../../../utils/combineSx";
+import React, { useEffect, useState } from "react";
+import { getCurrentLocation } from "../../../utils/locationUtils";
+import { observer } from "mobx-react-lite";
+import GeolocationStore from "../../../stores/GeolocationStore";
+import { DrawersKeys } from "../../templates/MainPageTemplate.tsx";
 
 interface HeaderProps {
-  onThemeChange: () => void
-  handleDrawerOpen: () => void
+  onThemeChange: () => void;
+  handleDrawerOpen: (context: DrawersKeys) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onThemeChange, handleDrawerOpen }) => {
-  const [geo, setGeo] = useState("")
+  const [geo, setGeo] = useState("");
 
   const getLocation = () => {
-    getCurrentLocation(
-      `${GeolocationStore.longitude}, ${GeolocationStore.latitude}`
-    ).then((res) => setGeo(res ?? ""))
-  }
+    getCurrentLocation(`${GeolocationStore.longitude}, ${GeolocationStore.latitude}`).then(res => setGeo(res ?? ""));
+  };
 
   useEffect(() => {
     if (GeolocationStore.longitude && GeolocationStore.latitude) {
-      getLocation()
+      getLocation();
     }
-  }, [GeolocationStore.longitude, GeolocationStore.latitude])
+  }, [GeolocationStore.longitude, GeolocationStore.latitude]);
 
   return (
     <Box sx={headerContainerMixin}>
       <Box sx={sidesContainerMixin}>
-        <AddCircleOutlineRoundedIcon />
+        <IconButton onClick={() => handleDrawerOpen("widgets")}>
+          <AddCircleOutlineRoundedIcon color={"inherit"} />
+        </IconButton>
         <Switch onChange={onThemeChange} />
       </Box>
       <Box sx={combineSx(sidesContainerMixin, { width: "15%" })}>
         <Typography sx={geolocationMixin} onClick={() => getLocation}>
           {geo ? geo : "Ваша геолокация"}
         </Typography>
-        <IconButton onClick={handleDrawerOpen}>
+        <IconButton onClick={() => handleDrawerOpen("cities")}>
           <DensityMediumIcon color={"inherit"} />
         </IconButton>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-const HeaderObserver = observer(Header)
-export default HeaderObserver
+const HeaderObserver = observer(Header);
+export default HeaderObserver;

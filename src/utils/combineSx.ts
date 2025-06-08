@@ -1,4 +1,4 @@
-import {SxProps, Theme} from "@mui/material";
+import { SxProps, Theme } from "@mui/material";
 
 export const combineSx = (...sxs: Array<SxProps<Theme> | undefined | false>): SxProps<Theme> => {
   if ((sxs.length === 1 && sxs[0]) || (sxs.length === 2 && sxs[0] && !sxs[1])) {

@@ -1,38 +1,47 @@
-import Header from "../organisms/Header/Header"
-import { Box, SxProps, Theme } from "@mui/material"
-import sunny from "../../images/sunny.gif"
-import WidgetsPanel from "../organisms/WidgetsPanel/WidgetsPanel.tsx"
-import Modal from "../organisms/Modal/Modal"
-import React, {ReactElement, useEffect, useMemo, useState} from "react"
-import { observer } from "mobx-react-lite"
-import GeolocationStore from "../../stores/GeolocationStore.ts"
-import WeatherStore from "../../stores/WeatherStore.ts"
-import Drawer from "../organisms/Drawer/Drawer.tsx"
-import { City } from "../../types/City.ts"
+import Header from "../organisms/Header/Header";
+import { Box, SxProps, Theme } from "@mui/material";
+import sunny from "../../images/sunny.gif";
+import WidgetsPanel from "../organisms/WidgetsPanel/WidgetsPanel.tsx";
+import Modal from "../organisms/Modal/Modal";
+import { FC, ReactElement, useEffect, useMemo, useState } from "react";
+import { observer } from "mobx-react-lite";
+import GeolocationStore from "../../stores/GeolocationStore.ts";
+import WeatherStore from "../../stores/WeatherStore.ts";
+import Drawer from "../organisms/Drawer/Drawer.tsx";
+import { City } from "../../types/City.ts";
 import {
   closestCenter,
   DndContext,
-  DragEndEvent, KeyboardSensor,
+  DragEndEvent,
+  KeyboardSensor,
   MouseSensor,
   useSensor,
   useSensors,
-} from "@dnd-kit/core"
-import { restrictToParentElement } from "@dnd-kit/modifiers"
-import {arrayMove, sortableKeyboardCoordinates} from "@dnd-kit/sortable"
-import widgetsStore from "../../stores/WidgetsStore.tsx"
+} from "@dnd-kit/core";
+import { restrictToParentElement } from "@dnd-kit/modifiers";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import MenuTextItem from "../molecules/MenuItem/MenuTextItem/MenuTextItem.tsx";
 import CityStore from "../../stores/CityStore.ts";
+import WidgetsStore from "../../stores/WidgetsStore.tsx";
+import MenuCardItem from "../molecules/MenuItem/MenuCardItem/MenuCardItem.tsx";
+
+type DrawerType = {
+  widgets: boolean;
+  cities: boolean;
+};
+
+export type DrawersKeys = keyof DrawerType;
 
 interface MainPageTemplateProps {
-  onThemeChange: () => void
+  onThemeChange: () => void;
 }
 
 export type WidgetContext = {
-  isWidgetModalOpen: boolean
-  widget?: ReactElement
-  title?: string
-}
-const mainMixin: SxProps<Theme> = (theme) => ({
+  isWidgetModalOpen: boolean;
+  widget?: ReactElement;
+  title?: string;
+};
+const mainMixin: SxProps<Theme> = theme => ({
   width: "100%",
   height: "100%",
   backgroundColor: theme.palette.background.default,
@@ -40,22 +49,20 @@ const mainMixin: SxProps<Theme> = (theme) => ({
   backgroundImage: `url(${sunny})`,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
-})
+});
 
-const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
-  onThemeChange,
-}) => {
+const MainPageTemplate: FC<MainPageTemplateProps> = ({ onThemeChange }) => {
   const [widgetContext, setWidgetContext] = useState<WidgetContext>({
     isWidgetModalOpen: false,
-  })
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
+  });
+  const [isDrawersOpen, setIsDrawersOpen] = useState<DrawerType>({ widgets: false, cities: false });
   const [cities, setCities] = useState<Array<City>>([]);
 
   useEffect(() => {
-    WeatherStore.fetchCurrentWeather()
-    WeatherStore.fetchForecastCurrentHoursWeather()
-    WeatherStore.fetchForecastThreeDaysWeather()
-  }, [GeolocationStore.longitude, GeolocationStore.latitude])
+    WeatherStore.fetchCurrentWeather();
+    WeatherStore.fetchForecastCurrentHoursWeather();
+    WeatherStore.fetchForecastThreeDaysWeather();
+  }, [GeolocationStore.longitude, GeolocationStore.latitude]);
 
   useEffect(() => {
     setCities([...CityStore.cities]);
@@ -66,39 +73,62 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
       isWidgetModalOpen: false,
       widget: undefined,
       title: undefined,
-    })
-  }
+    });
+  };
 
-  const handleDrawerClose = () => {
-    setIsDrawerOpen(false)
-  }
+  const handleDrawerChange = (context: DrawersKeys) => {
+    setIsDrawersOpen(prev => ({
+      ...prev,
+      [context]: !isDrawersOpen[context],
+    }));
+  };
 
-  const citiesDrawerContent = useMemo(() => (
-    <>
-      {cities
-        .sort((a, b) => {
-          if (a.pinned === b.pinned) {
-            return 0
-          }
-          return a.pinned ? -1 : 1
-        }).map((city) => (
-          <MenuTextItem city={city} onClick={CityStore.changeCurrentCity} />
-        ))
-      }
-    </>
-  ), [cities]);
+  const citiesDrawerContent = useMemo(
+    () => (
+      <>
+        {cities
+          .sort((a, b) => {
+            if (a.pinned === b.pinned) {
+              return 0;
+            }
+            return a.pinned ? -1 : 1;
+          })
+          .map(city => (
+            <MenuTextItem city={city} onClick={CityStore.changeCurrentCity} key={`city-${city.id}-item`} />
+          ))}
+      </>
+    ),
+    [cities]
+  );
+
+  const widgetsDrawerContent = useMemo(
+    () => (
+      <Box sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "15px" }}>
+        {WidgetsStore.data.map(widget => (
+          <MenuCardItem
+            content={widget.previewLayout}
+            onClick={() => {}}
+            key={`widget-${widget.id}-item`}
+            tooltipTitle={widget.nameRus}
+          />
+        ))}
+      </Box>
+    ),
+    [cities]
+  );
 
   const onChangeCitySearch = (searchValue?: string) => {
     setCities(
-      CityStore.cities
-        .filter((city) =>
-          searchValue
-            ? city.name.toLowerCase().includes(searchValue?.toLowerCase()) || city.pinned
-            : city
-        )
+      CityStore.cities.filter(city =>
+        searchValue ? city.name.toLowerCase().includes(searchValue?.toLowerCase()) || city.pinned : city
+      )
     );
-  }
+  };
 
+  const onChangeWidgetSearch = (searchValue?: string) => {
+    // TODO поиск по виджетам
+    console.log(searchValue);
+  };
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -107,25 +137,18 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
     },
   });
 
-  const sensors = useSensors(
-    mouseSensor,
-    useSensor(KeyboardSensor, {coordinateGetter: sortableKeyboardCoordinates})
-  )
+  const sensors = useSensors(mouseSensor, useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }));
 
   const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event
+    const { active, over } = event;
 
     if (active.id !== over?.id) {
-      const oldIndex = widgetsStore.data
-        .map((widget) => widget.id)
-        .indexOf(`${active.id}`)
-      const newIndex = widgetsStore.data
-        .map((widget) => widget.id)
-        .indexOf(`${over?.id}`)
+      const oldIndex = WidgetsStore.data.map(widget => widget.id).indexOf(`${active.id}`);
+      const newIndex = WidgetsStore.data.map(widget => widget.id).indexOf(`${over?.id}`);
 
-      widgetsStore.data = arrayMove(widgetsStore.data, oldIndex, newIndex)
+      WidgetsStore.data = arrayMove(WidgetsStore.data, oldIndex, newIndex);
     }
-  }
+  };
 
   return (
     <DndContext
@@ -135,16 +158,20 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
       onDragEnd={handleDragEnd}
     >
       <Box sx={mainMixin}>
-        <Header
-          onThemeChange={onThemeChange}
-          handleDrawerOpen={() => setIsDrawerOpen(true)}
-        />
+        <Header onThemeChange={onThemeChange} handleDrawerOpen={handleDrawerChange} />
         <Drawer
           anchor={"right"}
-          isOpen={isDrawerOpen}
-          onClose={handleDrawerClose}
+          isOpen={isDrawersOpen.cities}
+          onClose={() => handleDrawerChange("cities")}
           drawerContent={citiesDrawerContent}
           onSearch={onChangeCitySearch}
+        />
+        <Drawer
+          anchor={"left"}
+          isOpen={isDrawersOpen.widgets}
+          onClose={() => handleDrawerChange("widgets")}
+          drawerContent={widgetsDrawerContent}
+          onSearch={onChangeWidgetSearch}
         />
         <WidgetsPanel openModal={setWidgetContext} />
       </Box>
@@ -157,8 +184,8 @@ const MainPageTemplate: React.FC<MainPageTemplateProps> = ({
         />
       )}
     </DndContext>
-  )
-}
+  );
+};
 
-const MainPageTemplateObserver = observer(MainPageTemplate)
-export default MainPageTemplateObserver
+const MainPageTemplateObserver = observer(MainPageTemplate);
+export default MainPageTemplateObserver;
