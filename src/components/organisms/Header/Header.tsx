@@ -1,5 +1,6 @@
 import { Box, IconButton, Switch, Typography } from "@mui/material"
 import DensityMediumIcon from "@mui/icons-material/DensityMedium"
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import {
   geolocationMixin,
   headerContainerMixin,
@@ -34,6 +35,7 @@ const Header: React.FC<HeaderProps> = ({ onThemeChange, handleDrawerOpen }) => {
   return (
     <Box sx={headerContainerMixin}>
       <Box sx={sidesContainerMixin}>
+        <AddCircleOutlineRoundedIcon />
         <Switch onChange={onThemeChange} />
       </Box>
       <Box sx={combineSx(sidesContainerMixin, { width: "15%" })}>

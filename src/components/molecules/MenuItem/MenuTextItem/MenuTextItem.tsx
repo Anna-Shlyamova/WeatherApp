@@ -4,24 +4,24 @@ import {
   menuItemMixin,
   menuItemTextMixin,
   pushPinIconMixin,
-} from "./MenuItem.styles.ts"
+} from "./MenuTextItem.styles.ts"
 import PushPinIcon from "@mui/icons-material/PushPin"
-import { City } from "../../../types/City.ts"
-import CityStore from "../../../stores/CityStore.ts"
+import { City } from "../../../../types/City.ts"
+import CityStore from "../../../../stores/CityStore.ts"
 
 interface MenuItemProps {
   city: City
-  handleChangeCity: (city: City) => void
+  onClick: (city: City) => void
 }
 
-const MenuItem: FC<MenuItemProps> = ({ city, handleChangeCity }) => {
+const MenuTextItem: FC<MenuItemProps> = ({ city, onClick }) => {
   const pinCity = () => {
     const { pinned, ...body } = city
     CityStore.updateCities({ ...body, pinned: !pinned })
   }
 
   return (
-    <Box sx={menuItemMixin} onClick={() => handleChangeCity(city)}>
+    <Box sx={menuItemMixin} onClick={() => onClick(city)}>
       <Typography sx={menuItemTextMixin}>{city.name}</Typography>
       <IconButton
         onClick={(event): void => {
@@ -35,4 +35,4 @@ const MenuItem: FC<MenuItemProps> = ({ city, handleChangeCity }) => {
   )
 }
 
-export default MenuItem
+export default MenuTextItem

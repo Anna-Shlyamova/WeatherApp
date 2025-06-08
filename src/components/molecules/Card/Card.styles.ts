@@ -12,6 +12,9 @@ export const CardContainerMixin: SxProps<Theme> = (theme) => ({
   border: "solid 1px",
   borderColor: theme.palette.secondary.main,
   cursor: "pointer",
+  '&:hover': {
+    border: `2px solid ${theme.palette.primary.main}`,
+  }
 })
 
 export const CardContainerDraggableMixin = (
