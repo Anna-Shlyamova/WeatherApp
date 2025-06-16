@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
-import { observer } from "mobx-react-lite";
 import WidgetsStore from "../../../stores/WidgetsStore.tsx";
 import MenuCardItem from "../../molecules/MenuItem/MenuCardItem/MenuCardItem.tsx";
 import { WidgetsDrawerContainer } from "./DrawerContent.styles.ts";
@@ -22,5 +21,4 @@ const DrawerWidgetsContent: FC<DrawerWidgetsContentProps> = () => {
   );
 };
 
-const DrawerWidgetsContentObserver = observer(DrawerWidgetsContent);
-export default DrawerWidgetsContentObserver;
+export default DrawerWidgetsContent;
