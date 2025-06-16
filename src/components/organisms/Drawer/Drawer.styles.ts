@@ -1,9 +1,11 @@
 import { SxProps, Theme } from "@mui/material";
 
-export const drawerMixin: SxProps<Theme> = (theme) => ({
+export const drawerMixin: SxProps<Theme> = theme => ({
   ".MuiPaper-root": {
     py: "15px",
     backgroundColor: theme.palette.primary.main,
+    minWidth: "250px",
+    width: "20%",
   },
 });
 

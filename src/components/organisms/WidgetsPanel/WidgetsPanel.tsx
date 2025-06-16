@@ -3,9 +3,8 @@ import { mainContainerMixin } from "./WidgetsPanel.style.ts";
 import { WidgetContext } from "../../templates/MainPageTemplate";
 import { observer } from "mobx-react-lite";
 import WidgetsStore from "../../../stores/WidgetsStore.tsx";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import Card from "../../molecules/Card/Card";
-import WeatherStore from "../../../stores/WeatherStore.ts";
 import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 
 interface WidgetsPanelProps {
@@ -13,11 +12,7 @@ interface WidgetsPanelProps {
 }
 
 const WidgetsPanel: FC<WidgetsPanelProps> = ({ openModal }) => {
-  const widgets = WidgetsStore.data;
-
-  useEffect(() => {
-    WidgetsStore.loadDefaultWidgets();
-  }, [WeatherStore.currentWeather, WeatherStore.forecastCurrentHoursWeather]);
+  const widgets = WidgetsStore.displayedData;
 
   return (
     <Box sx={mainContainerMixin}>

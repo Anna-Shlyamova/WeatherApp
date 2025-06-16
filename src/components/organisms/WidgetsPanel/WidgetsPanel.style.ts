@@ -3,8 +3,7 @@ import { SxProps, Theme } from "@mui/material";
 export const mainContainerMixin: SxProps<Theme> = theme => ({
   height: "30%",
   width: "100%",
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr 1fr",
+  display: "flex",
   position: "absolute",
   bottom: 0,
   left: 0,

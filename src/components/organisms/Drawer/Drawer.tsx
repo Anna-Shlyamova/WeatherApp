@@ -3,7 +3,6 @@ import { Drawer as DrawerMui } from "@mui/material";
 import TextField from "../../atoms/TextField/TextField.tsx";
 import SimpleBar from "simplebar-react";
 import { drawerMixin, drawerTextFieldMixin } from "./Drawer.styles.ts";
-import { observer } from "mobx-react-lite";
 
 interface DrawerProps {
   anchor?: "left" | "right" | "top" | "bottom";
@@ -36,5 +35,4 @@ const Drawer: FC<DrawerProps> = ({ anchor, isOpen, onClose, drawerContent, onSea
   );
 };
 
-const DrawerObserver = observer(Drawer);
-export default DrawerObserver;
+export default Drawer;

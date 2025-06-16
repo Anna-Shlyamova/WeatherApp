@@ -12,7 +12,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 class WidgetsStore {
   private _data: Array<Widget> = [];
-
+  private _displayedData: Array<Widget> = [];
   constructor() {
     makeAutoObservable<WidgetsStore>(this);
   }
@@ -23,6 +23,14 @@ class WidgetsStore {
 
   set data(data: Array<Widget>) {
     this._data = data;
+  }
+
+  get displayedData(): Array<Widget> {
+    return this._displayedData;
+  }
+
+  set displayedData(displayedData: Array<Widget>) {
+    this._displayedData = displayedData;
   }
 
   loadDefaultWidgets = () => {
@@ -172,6 +180,7 @@ class WidgetsStore {
         ),
       },
     ];
+    this.displayedData = this.data.slice(0, 3);
   };
 
   getChartData(name: string, nameRus: string): ChartData<"line"> {
@@ -256,10 +265,30 @@ class WidgetsStore {
   getPreviewLayout(name: string): ReactElement {
     return (
       <>
-        <AddIcon color={"inherit"} />
+        <AddIcon color={"action"} />
         {name[0].toUpperCase()}
       </>
     );
+  }
+
+  deleteDisplayedWidget(id: string): void {
+    const isWidgetOnDisplay = this.displayedData.find(widget => widget.id === id);
+    if (!isWidgetOnDisplay) {
+      this.displayedData = this.displayedData.filter(widget => widget.id === id);
+    }
+  }
+
+  addDisplayedWidget(id: string): void {
+    const isWidgetOnDisplay = this.displayedData.find(widget => widget.id === id);
+    const dataWidget = this.data.find(widget => widget.id === id);
+    if (!isWidgetOnDisplay && dataWidget) {
+      this.displayedData = [...this.displayedData, dataWidget];
+    }
+  }
+
+  getDrawerWidgets(): Array<Widget> {
+    const displayedWidgetsIds = this.displayedData.map(widget => widget.id);
+    return this.data.filter(widget => !displayedWidgetsIds.includes(widget.id));
   }
 }
 
